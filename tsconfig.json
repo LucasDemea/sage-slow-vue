@@ -1,0 +1,17 @@
+{
+  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
+  "include": ["resources", "global.d.ts"],
+  "exclude": [
+    // "node_modules",
+    "public"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "types": ["naive-ui/volar"],
+    "paths": {
+      "@src/*": ["src/*"],
+      "@scripts/*": ["resources/scripts/*"]
+    }
+  }
+}
