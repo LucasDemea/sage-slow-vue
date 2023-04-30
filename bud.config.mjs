@@ -28,6 +28,24 @@ export default async (app) => {
     __VUE_PROD_DEVTOOLS__: false, // If you don't want people sneaking around your components in production.
   });
 
+  app.alias({
+    [`naive-ui$`]: app.isDevelopment
+      ? app.path(`@modules/naive-ui/dist/index.js`) // commonjs modules are faster to build
+      : app.path(`@modules/naive-ui/es/index.js`), // es modules are tree shakeable
+  });
+
+  /**
+   * This is not important for the build optimization
+   * and can be removed if desired.
+   *
+   * The intent is to bundle naive-ui and vue for better transparency
+   * about imports and file sizes of compiled modules.
+   */
+  app
+    .bundle(`vue`, [`vue`])
+    .bundle(`naive-ui`, [`naive-ui, vooks, seemly`])
+    .bundle(`naive-ui-styles`, [`@css-render`, `@emotion`, `@juggle`]);
+
   /**
    * Development server settings
    *
